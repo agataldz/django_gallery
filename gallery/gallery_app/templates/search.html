@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Wyszukaj{% endblock title %}
+
+{% block content %}
+<h4 class="my-4">Wyszukaj</h4>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="OK">
+</form>
+{% for photo in result %}
+{% if forloop.counter0|divisibleby:4 %}
+    <div class="row">
+{% endif %}
+<div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+    <div class="card h-100">
+        <a href="/zdjecie/{{ photo.id }}"><img class="card-img-top" src="{{ photo.photo.url }}" alt="{{ photo.title }}" width="275px" height="183px"/></a>
+        <div class="card-body">
+            <h4 class="card-title">
+            <a href="/zdjecie/{{ photo.id }}">{{ photo.title }}</a>
+            </h4>
+        </div>
+    <p class="card-text">{{ photo.description }}</p>
+    </div>
+</div>
+{% if forloop.counter|divisibleby:4 or forloop.last %}
+  </div>
+{% endif %}
+{% endfor %}
+{% endblock %}

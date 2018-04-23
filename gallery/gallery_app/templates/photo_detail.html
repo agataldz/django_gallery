@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Zdjęcie użtkownika {{ user.username }}{% endblock title %}
+{% block content %}
+<h1 class="my-4">PhotoGallery
+    <small>Zdjęcie użtkownika {{ photo.username }}</small>
+</h1>
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12 portfolio-item">
+    <img src="{{ photo.photo.url }}" alt="..." class="img-fluid">
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 portfolio-item">
+      <h4>
+        <a href="/zdjecie/{{ photo.id }}">{{ photo.title }}</a>
+      </h4>
+      <p>{{ photo.description }}</p>
+      <p>Autor: {{ photo.username.username }}</p>
+      <p>Data dodania: {{ photo.created }}</p>
+      <p><a href="/edytuj/{{ photo.id }}">DODAJ FILTR</a></p>
+      <p><a href="/napis/{{ photo.id }}">DODAJ NAPIS</a></p>
+      <p><a href="/usun/{{ photo.id }}">USUŃ</a></p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 portfolio-item">
+    <h4 class="my-4">Komentarze: </h4>
+    {% for comment in comments %}
+    <p>{{ comment.content }}
+    <br>{{ comment.created }} autor: {{ comment.username.username }}
+    {% endfor %}
+    <h4 class="my-4">Dodaj komentarz: </h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <input type="submit" value="OK">
+    </form>
+  </div>
+</div>
+{% endblock %}

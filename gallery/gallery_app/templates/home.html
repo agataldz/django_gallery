@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}PhotoGallery{% endblock title %}
+
+{% block content %}
+<h1 class="my-4">PhotoGallery
+    <small>Ostatnio dodane:</small>
+</h1>
+{% for photo in photos %}
+{% if forloop.counter0|divisibleby:4 %}
+<div class="row">
+{% endif %}
+  <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+    <div class="card h-100">
+      <img class="card-img-top" src="{{ photo.photo.url }}" width="270" height="150">
+    <div class="card-body">
+      <h4 class="card-title">
+        <a href="/zdjecie/{{ photo.id }}">{{ photo.title }}</a>
+      </h4>
+    </div>
+      <p class="card-text">{{ photo.description }}</p>
+    </div>
+  </div>
+{% if forloop.counter|divisibleby:4 or forloop.last %}
+  </div>
+{% endif %}
+{% endfor %}
+<p>
+<div align="center" class="pagination">
+    <span class="step-links">
+        {% if photos.has_previous %}
+            <a href="?page=1">&laquo; Pierwsza</a>
+            <a href="?page={{ photos.previous_page_number }}">Poprzednia</a>
+        {% endif %}
+
+        <span class="current">
+            Strona {{ photos.number }} z {{ photos.paginator.num_pages }}.
+        </span>
+
+        {% if photos.has_next %}
+            <a href="?page={{ photos.next_page_number }}">Następna</a>
+            <a href="?page={{ photos.paginator.num_pages }}">Ostatnia &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}
+
+

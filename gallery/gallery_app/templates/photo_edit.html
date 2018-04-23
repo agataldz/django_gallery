@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Edytuj zdjęcie{% endblock title %}
+
+{% block content %}
+<h1 class="my-4">PhotoGallery
+    <small>Edytuj zdjęcie</small>
+</h1>
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12 portfolio-item">
+     <img src="{{ obj.photo.url }}" alt="..." class="img-fluid">
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 portfolio-item">
+    <h4>
+      <a href="/zdjecie/{{ obj.id }}">{{ obj.title }}</a>
+    </h4>
+    <p>{{ obj.description }}</p>
+    <p>Autor: {{ obj.username.username }}</p>
+    <p>Data dodania: {{ obj.created }}</p>
+    <h4 class="my-4">Dodaj filtr: </h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form_filter }}
+        <input type="submit" value="OK">
+    </form>
+    <p><a href="/zdjecie/{{ obj.id }}">POWRÓT</a></p>
+   </div>
+</div>
+{% endblock %}

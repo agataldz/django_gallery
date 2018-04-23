@@ -1,0 +1,73 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="pl">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="{% static "vendor/bootstrap/css/bootstrap.css" %}" rel="stylesheet">
+    <link href="{% static "css/style.css" %} rel="stylesheet">
+
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">PhotoGallery</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+              <a class="nav-link" href="/">Strona główna
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/dodaj/">Dodaj zdjęcie</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/szukaj/">Wyszukaj</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/profil/">Mój profil</a>
+            </li>
+            {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="/wyloguj/">Wyloguj, {{user.username }}</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="/zaloguj/">Zaloguj</a>
+            {% endif %}
+                </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+    <!-- Page Content -->
+      {% block content %}{% endblock %}
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy;  2018</p>
+      </div>
+    </footer>
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+    <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+
+  </body>
+
+</html>
